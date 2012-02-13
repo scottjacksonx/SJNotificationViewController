@@ -9,7 +9,7 @@ All you need to do is create a notification, give it a view to slide up from, an
 	[notificationController setNotificationTitle:@"Hello"];
 	[notificationController show];
 	
-![](http://judoburrito.com/SJNotificationViewController/notification.png)
+![](http://www.judoburrito.com/SJNotificationViewController/notification.png)
 	
 That gives you a basic notification that slides up from the bottom of `aView`. When you want your notification to slide back down, you just call `[notificationController hide]`. Pretty simple, right?
 
@@ -19,11 +19,11 @@ You can customise a few things about SJNotificationViewController:
 
 SJNotificationViewController has a property called `notificationLevel` that changes the notification's background colour. A notification's `notificationLevel` is one of `SJNotificationLevelError` (red -- for error notifications), `SJNotificationLevelMessage` (blue -- for regular notifications), or `SJNotificationLevelSuccess` (green -- for success notifications). The exact RGB values for the notification levels aren't set in stone yet. Right now, they're extremely red, extremely blue, and extremely green.
 
-![](http://judoburrito.com/SJNotificationViewController/error.png)
+![](http://www.judoburrito.com/SJNotificationViewController/error.png)
 
-![](http://judoburrito.com/SJNotificationViewController/message.png)
+![](http://www.judoburrito.com/SJNotificationViewController/message.png)
 
-![](http://judoburrito.com/SJNotificationViewController/success.png)
+![](http://www.judoburrito.com/SJNotificationViewController/success.png)
 
 ## Tapping on a Notification ##
 
@@ -33,7 +33,7 @@ By default, tapping on a notification just hides it, but you can define your own
 
 By default, a notification doesn't have a spinner, but you can give it one by calling `[notificationController setShowSpinner:YES]`. Doing so will shrink the notification's label to fit the spinner.
 
-![](http://judoburrito.com/SJNotificationViewController/spinner.png)
+![](http://www.judoburrito.com/SJNotificationViewController/spinner.png)
 
 ## More In-Depth Customisations ##
 
