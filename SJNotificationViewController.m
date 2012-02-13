@@ -17,7 +17,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #define COLOR_FADE_DURATION 0.25f
 
 #define ERROR_HEX_COLOR 0xff0000
-#define MESSAGE_HEX_COLOR 0x0000ff
+#define MESSAGE_HEX_COLOR 0x0f5297
 #define SUCCESS_HEX_COLOR 0x00ff00
 #define NOTIFICATION_VIEW_OPACITY 0.85f
 
@@ -98,6 +98,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:target action:selector];
 	[self.view addGestureRecognizer:tap];
+	[tap release];
 }
 
 #pragma mark - Setting Notification Level
@@ -136,14 +137,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #pragma mark - Spinner
 
 - (void)setShowSpinner:(BOOL)b {
-	NSLog(@"%@", spinner);
 	showSpinner = b;
 	if (showSpinner) {
 		NSLog(@"spinner showing");
 		[spinner.layer setOpacity:1.0];
 		[UIView animateWithDuration:LABEL_RESIZE_DURATION
 						 animations:^{
-							 [label setFrame:CGRectMake(44, label.frame.origin.y, label.frame.size.width + 20 + 22, label.frame.size.height)];
+							 [label setFrame:CGRectMake(44, label.frame.origin.y, 258, label.frame.size.height)];
 						 }
 						 completion:^(BOOL finished) {
 							 [spinner startAnimating];

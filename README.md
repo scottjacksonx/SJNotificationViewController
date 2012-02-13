@@ -2,7 +2,7 @@
 
 SJNotificationViewController lets you put dead-simple notifications that slide up from the bottom of a view into your iOS apps.
 
-All you need to do is import the QuartzCore framework, create a notification, give it a view to slide up from, and tell it to show itself. Like this:
+All you need to do is create a notification, give it a view to slide up from, and tell it to show itself. Like this:
 
 	SJNotificationViewController *notificationController = [[SJNotificationViewController alloc] initWithNibName:@"SJNotificationViewController" bundle:nil];
 	[notificationController setParentView:aView];
@@ -11,7 +11,7 @@ All you need to do is import the QuartzCore framework, create a notification, gi
 	
 ![](http://judoburrito.com/SJNotificationViewController/notification.png)
 	
-That gives you a basic notification that slides up from the bottom of `aView`. When you want your notification to slide down again, you just call `[notificationController hide]`. Pretty simple, right?
+That gives you a basic notification that slides up from the bottom of `aView`. When you want your notification to slide back down, you just call `[notificationController hide]`. Pretty simple, right?
 
 You can customise a few things about SJNotificationViewController:
 
@@ -27,7 +27,7 @@ SJNotificationViewController has a property called `notificationLevel` that chan
 
 ## Tapping on a Notification ##
 
-By default, tapping on a notification just hides it, but you can define your own action/selector pair to be called when the notification is tapped with `[notificationController setTapTarget:self action:@selector(doSomething)]`.
+By default, tapping on a notification just hides it, but you can define your own target/selector pair to be called when the notification is tapped with `[notificationController setTapTarget:self action:@selector(doSomething)]`.
 
 ## Spinner ##
 
