@@ -30,6 +30,11 @@ SJNotificationViewController has a property called `notificationLevel` that chan
 
 SJNotificationViewController has a property called `backgroundColor` it allows you to change the color of the notification regardless of its `notificationLevel` it also allows you to add a different background to the notification for each view controller SJNotificationViewController is implemented in.
 
+**Example**
+
+    /* After loading the SJNotificationViewController from its xib file */
+    notificationController.backgroundColor = [UIColor purpleColor];
+
 ## Tapping on a Notification ##
 
 By default, tapping on a notification just hides it, but you can define your own target/selector pair to be called when the notification is tapped with `[notificationController setTapTarget:self action:@selector(doSomething)]`.
