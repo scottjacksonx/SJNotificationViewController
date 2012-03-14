@@ -27,6 +27,7 @@ typedef enum {
 }
 
 @property (readwrite, assign) UIView *parentView;
+@property (nonatomic, retain) UIColor *backgroundColor;
 
 - (void)setShowSpinner:(BOOL)b;
 - (void)setNotificationLevel:(SJNotificationLevel)level;

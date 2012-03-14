@@ -24,6 +24,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 @implementation SJNotificationViewController
 
 @synthesize parentView;
+@synthesize backgroundColor = _backgroundColor;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,6 +54,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	CGFloat yPosition = [parentView frame].size.height;
 	
 	[self.view setFrame:CGRectMake(0, yPosition, self.view.frame.size.width, self.view.frame.size.height)];
+    [self.view setBackgroundColor:self.backgroundColor];
 	[parentView addSubview:self.view];
 	
 	[UIView animateWithDuration:SLIDE_DURATION
