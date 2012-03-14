@@ -4,7 +4,7 @@ SJNotificationViewController lets you put dead-simple notifications that slide u
 
 All you need to do is create a notification, give it a view to slide up from, and tell it to show itself. Like this:
 
-	SJNotificationViewController *notificationController = [[SJNotificationViewController alloc] initWithNibName:@"SJNotificationViewController" bundle:nil];
+	SJNotificationViewController *notificationController = [[SJNotificationViewController alloc] 	initWithNibName:@"SJNotificationViewController" bundle:nil];
 	[notificationController setParentView:aView];
 	[notificationController setNotificationTitle:@"Hello"];
 	[notificationController show];
@@ -12,6 +12,7 @@ All you need to do is create a notification, give it a view to slide up from, an
 ![](http://www.judoburrito.com/SJNotificationViewController/notification.png)
 	
 That gives you a basic notification that slides up from the bottom of `aView`. When you want your notification to slide back down, you just call `[notificationController hide]`. Pretty simple, right?
+
 
 You can customise a few things about SJNotificationViewController:
 
@@ -24,6 +25,10 @@ SJNotificationViewController has a property called `notificationLevel` that chan
 ![](http://www.judoburrito.com/SJNotificationViewController/message.png)
 
 ![](http://www.judoburrito.com/SJNotificationViewController/success.png)
+
+## Background Color ##
+
+SJNotificationViewController has a property called `backgroundColor` it allows you to change the color of the notification regardless of its `notificationLevel` it also allows you to add a different background to the notification for each view controller SJNotificationViewController is implemented in.
 
 ## Tapping on a Notification ##
 
