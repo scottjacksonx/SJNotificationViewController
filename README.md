@@ -46,6 +46,13 @@ Instead of giving these typedef'd values, you can also just give the amount of m
 * `[notificationController setNotificationDuration:SJNotificationDurationMedium];` or
 * `[notificationController setNotificationDuration:7000];`
 
+## Background and Text Color
+
+You can set the background color as well as text color like this:
+
+* `[notificationController setBackgroundColor:[UIColor brownColor]];` and
+* `[notificationController setTextColor:[UIColor yellowColor]];`
+
 ## Tapping on a Notification ##
 
 By default, tapping on a notification just hides it, but you can define your own target/selector pair to be called when the notification is tapped with `[notificationController setTapTarget:self action:@selector(doSomething)]`.

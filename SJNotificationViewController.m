@@ -23,7 +23,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @implementation SJNotificationViewController
 
-@synthesize parentView, notificationPosition, notificationDuration;
+@synthesize parentView, notificationPosition, notificationDuration, backgroundColor;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -49,6 +49,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 - (void)show {
 	NSLog(@"showing notification view");
 	
+    /* Override level's background color if background color is set manually */
+    if (backgroundColor) {
+        [self.view setBackgroundColor:backgroundColor];
+    }
+    
 	/* Attach to the bottom of the parent view. */
 	CGFloat yPosition;
     
@@ -153,25 +158,26 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	notificationLevel = level;
 	
 	UIColor *color;
-	switch (notificationLevel) {
-		case SJNotificationLevelError:
-			color = [UIColor colorWithRed:((float)((ERROR_HEX_COLOR & 0xFF0000) >> 16))/255.0
-									green:((float)((ERROR_HEX_COLOR & 0xFF00) >> 8))/255.0
-									 blue:((float)(ERROR_HEX_COLOR & 0xFF))/255.0 alpha:NOTIFICATION_VIEW_OPACITY];
-			break;
-		case SJNotificationLevelMessage:
-			color = [UIColor colorWithRed:((float)((MESSAGE_HEX_COLOR & 0xFF0000) >> 16))/255.0
-											green:((float)((MESSAGE_HEX_COLOR & 0xFF00) >> 8))/255.0
-											 blue:((float)(MESSAGE_HEX_COLOR & 0xFF))/255.0 alpha:NOTIFICATION_VIEW_OPACITY];
-			break;
-		case SJNotificationLevelSuccess:
-			color = [UIColor colorWithRed:((float)((SUCCESS_HEX_COLOR & 0xFF0000) >> 16))/255.0
-									green:((float)((SUCCESS_HEX_COLOR & 0xFF00) >> 8))/255.0
-									 blue:((float)(SUCCESS_HEX_COLOR & 0xFF))/255.0 alpha:NOTIFICATION_VIEW_OPACITY];
-			break;
-		default:
-			break;
-	}
+    
+    switch (notificationLevel) {
+        case SJNotificationLevelError:
+            color = [UIColor colorWithRed:((float)((ERROR_HEX_COLOR & 0xFF0000) >> 16))/255.0
+                                    green:((float)((ERROR_HEX_COLOR & 0xFF00) >> 8))/255.0
+                                     blue:((float)(ERROR_HEX_COLOR & 0xFF))/255.0 alpha:NOTIFICATION_VIEW_OPACITY];
+            break;
+        case SJNotificationLevelMessage:
+            color = [UIColor colorWithRed:((float)((MESSAGE_HEX_COLOR & 0xFF0000) >> 16))/255.0
+                                    green:((float)((MESSAGE_HEX_COLOR & 0xFF00) >> 8))/255.0
+                                     blue:((float)(MESSAGE_HEX_COLOR & 0xFF))/255.0 alpha:NOTIFICATION_VIEW_OPACITY];
+            break;
+        case SJNotificationLevelSuccess:
+            color = [UIColor colorWithRed:((float)((SUCCESS_HEX_COLOR & 0xFF0000) >> 16))/255.0
+                                    green:((float)((SUCCESS_HEX_COLOR & 0xFF00) >> 8))/255.0
+                                     blue:((float)(SUCCESS_HEX_COLOR & 0xFF))/255.0 alpha:NOTIFICATION_VIEW_OPACITY];
+            break;
+        default:
+            break;
+    }
 	
 	[UIView animateWithDuration:COLOR_FADE_DURATION
 					 animations:^ {
@@ -207,6 +213,15 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	}
 }
 
+#pragma mark - Text Color
+
+- (void)setTextColor:(UIColor *)theTextColor {
+    label.textColor = theTextColor;
+}
+
+- (UIColor*)textColor {
+    return label.textColor;
+}
 
 #pragma mark - View lifecycle
 

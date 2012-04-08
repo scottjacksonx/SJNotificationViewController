@@ -39,11 +39,15 @@ typedef enum {
 	IBOutlet UIActivityIndicatorView *spinner;
 	BOOL showSpinner;
 	NSString *notificationTitle;
+    UIColor *backgroundColor;
+    UIColor *textColor;
 }
 
 @property (readwrite, assign) UIView *parentView;
 @property (nonatomic) SJNotificationPosition notificationPosition;
 @property (nonatomic) SJNotificationDuration notificationDuration;
+@property (nonatomic, retain) UIColor *backgroundColor;
+@property (nonatomic, retain) UIColor *textColor;
 
 - (void)setShowSpinner:(BOOL)b;
 - (void)setNotificationLevel:(SJNotificationLevel)level;
