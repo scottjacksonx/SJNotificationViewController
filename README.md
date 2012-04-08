@@ -1,6 +1,6 @@
 # SJNotificationViewController #
 
-SJNotificationViewController lets you put dead-simple notifications that slide up from the bottom of a view into your iOS apps.
+SJNotificationViewController lets you put dead-simple notifications that slide up from the bottom or down from the top of a view into your iOS apps.
 
 All you need to do is create a notification, give it a view to slide up from, and tell it to show itself. Like this:
 
@@ -14,7 +14,7 @@ All you need to do is create a notification, give it a view to slide up from, an
 That gives you a basic notification that slides up from the bottom of `aView`. When you want your notification to slide back down, you just call `[notificationController hide]`. Pretty simple, right?
 
 You can customise a few things about SJNotificationViewController:
-
+    
 ## Notification Levels ##
 
 SJNotificationViewController has a property called `notificationLevel` that changes the notification's background colour. A notification's `notificationLevel` is one of `SJNotificationLevelError` (red -- for error notifications), `SJNotificationLevelMessage` (blue -- for regular notifications), or `SJNotificationLevelSuccess` (green -- for success notifications). The exact RGB values for the notification levels aren't set in stone yet. Right now, they're extremely red, extremely blue, and extremely green.
@@ -24,6 +24,12 @@ SJNotificationViewController has a property called `notificationLevel` that chan
 ![](http://www.judoburrito.com/SJNotificationViewController/message.png)
 
 ![](http://www.judoburrito.com/SJNotificationViewController/success.png)
+
+## Notification Position ##
+
+There is also a property called `notificationPosition` to control whether your notification should appear at the top or at the bottom of its parent view. Set it to `SJNotificationPositionTop` or `SJNotificationPositionBottom` (default) accordingly.
+
+    [notificationController setNotificationPosition:SJNotificationPositionTop];
 
 ## Tapping on a Notification ##
 
