@@ -23,7 +23,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @implementation SJNotificationViewController
 
-@synthesize parentView, notificationPosition;
+@synthesize parentView, notificationPosition, notificationDuration;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -76,6 +76,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 						 [self.view setFrame:shownRect];
 					 }
 	 ];
+    
+    if (notificationDuration != SJNotificationDurationStay) {
+        [self performSelector:@selector(hide) withObject:nil afterDelay:((CGFloat)notificationDuration / 1000.0f)];
+    }
 }
 
 - (void)hide {
