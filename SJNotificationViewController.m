@@ -80,6 +80,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (void)hide {
 	NSLog(@"hiding notification view");
+  if (!self.view.superview) {
+    return;
+  }
+  
 	[UIView animateWithDuration:SLIDE_DURATION
 					 animations:^{
 						 /* Slide the notification view down. */
