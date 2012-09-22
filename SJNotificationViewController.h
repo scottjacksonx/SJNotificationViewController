@@ -32,7 +32,7 @@ typedef enum {
 	NSString *notificationTitle;
 }
 
-@property (readwrite, assign) UIView *parentView;
+@property (strong, nonatomic) UIView *parentView;
 @property (nonatomic) SJNotificationPosition notificationPosition;
 
 - (void)setShowSpinner:(BOOL)b;
@@ -41,6 +41,7 @@ typedef enum {
 - (void)show;
 - (void)hide;
 
+- (void)showFor:(NSInteger)seconds;
 - (void)setNotificationTitle:(NSString *)t;
 - (void)setTapTarget:(id)target selector:(SEL)selector;
 
