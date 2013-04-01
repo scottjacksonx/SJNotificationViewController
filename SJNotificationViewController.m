@@ -1,13 +1,13 @@
 /*
-Copyright (c) <YEAR>, <OWNER>
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-
-Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ Copyright (c) <YEAR>, <OWNER>
+ All rights reserved.
+ 
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ 
+ Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #import "SJNotificationViewController.h"
 #import <QuartzCore/QuartzCore.h>
@@ -19,6 +19,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #define ERROR_HEX_COLOR 0xff0000
 #define MESSAGE_HEX_COLOR 0x0f5297
 #define SUCCESS_HEX_COLOR 0x00ff00
+#define PLAIN_HEX_COLOR 0xffffff
 #define NOTIFICATION_VIEW_OPACITY 0.85f
 
 @implementation SJNotificationViewController
@@ -31,7 +32,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     if (self) {
         // Custom initialization
 		showSpinner = NO;
-		[self setNotificationLevel:SJNotificationLevelMessage];
+		[self setNotificationLevel:SJNotificationLevelPlain];
     }
     return self;
 }
@@ -59,7 +60,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
             
         default:
             yPosition = [parentView frame].size.height;
-
+            
             break;
     }
 	
@@ -80,10 +81,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (void)hide {
 	NSLog(@"hiding notification view");
-  if (!self.view.superview) {
-    return;
-  }
-  
+    if (!self.view.superview) {
+        return;
+    }
+    
 	[UIView animateWithDuration:SLIDE_DURATION
 					 animations:^{
 						 /* Slide the notification view down. */
@@ -92,7 +93,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					 completion:^(BOOL finished) {
 						 [self.view removeFromSuperview];
 					 }
-	];
+     ];
 }
 
 #pragma mark - Calculating position
@@ -111,7 +112,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                 y = [parentView frame].size.height;
                 break;
         }
-    // when shown
+        // when shown
     } else {
         switch (notificationPosition) {
             case SJNotificationPositionTop:
@@ -131,6 +132,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #pragma mark - Setting Notification Title
 
 - (void)setNotificationTitle:(NSString *)t {
+    if (notificationLevel == SJNotificationLevelPlain) {
+        return;
+    }
+    
 	notificationTitle = t;
 	[label setText:t];
 }
@@ -160,14 +165,19 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			break;
 		case SJNotificationLevelMessage:
 			color = [UIColor colorWithRed:((float)((MESSAGE_HEX_COLOR & 0xFF0000) >> 16))/255.0
-											green:((float)((MESSAGE_HEX_COLOR & 0xFF00) >> 8))/255.0
-											 blue:((float)(MESSAGE_HEX_COLOR & 0xFF))/255.0 alpha:NOTIFICATION_VIEW_OPACITY];
+                                    green:((float)((MESSAGE_HEX_COLOR & 0xFF00) >> 8))/255.0
+                                     blue:((float)(MESSAGE_HEX_COLOR & 0xFF))/255.0 alpha:NOTIFICATION_VIEW_OPACITY];
 			break;
 		case SJNotificationLevelSuccess:
 			color = [UIColor colorWithRed:((float)((SUCCESS_HEX_COLOR & 0xFF0000) >> 16))/255.0
 									green:((float)((SUCCESS_HEX_COLOR & 0xFF00) >> 8))/255.0
 									 blue:((float)(SUCCESS_HEX_COLOR & 0xFF))/255.0 alpha:NOTIFICATION_VIEW_OPACITY];
 			break;
+        case SJNotificationLevelPlain:
+            color = [UIColor colorWithRed:((float)((PLAIN_HEX_COLOR & 0xFF0000) >> 16))/255.0
+									green:((float)((PLAIN_HEX_COLOR & 0xFF00) >> 8))/255.0
+									 blue:((float)(PLAIN_HEX_COLOR & 0xFF))/255.0 alpha:NOTIFICATION_VIEW_OPACITY];
+            break;
 		default:
 			break;
 	}
@@ -176,7 +186,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					 animations:^ {
 						 [self.view setBackgroundColor:color];
 					 }
-	];
+     ];
 }
 
 #pragma mark - Spinner
@@ -185,6 +195,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	showSpinner = b;
 	if (showSpinner) {
 		NSLog(@"spinner showing");
+        if (notificationLevel == SJNotificationLevelPlain) {
+            spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+            spinner.center = self.view.center;
+        }
 		[spinner.layer setOpacity:1.0];
 		[UIView animateWithDuration:LABEL_RESIZE_DURATION
 						 animations:^{
@@ -193,7 +207,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 						 completion:^(BOOL finished) {
 							 [spinner startAnimating];
 						 }
-		];
+         ];
 	} else {
 		NSLog(@"spinner not showing");
 		[spinner stopAnimating];
