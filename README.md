@@ -35,6 +35,12 @@ There is also a property called `notificationPosition` to control whether your n
 
 By default, tapping on a notification just hides it, but you can define your own target/selector pair to be called when the notification is tapped with `[notificationController setTapTarget:self action:@selector(doSomething)]`.
 
+## Showing notification for x seconds ##
+
+Calling the showFor method will show the notification for a number of seconds.
+
+	[notificationController showFor:2];
+
 ## Spinner ##
 
 By default, a notification doesn't have a spinner, but you can give it one by calling `[notificationController setShowSpinner:YES]`. Doing so will shrink the notification's label to fit the spinner.
