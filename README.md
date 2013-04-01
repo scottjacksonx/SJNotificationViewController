@@ -31,6 +31,28 @@ There is also a property called `notificationPosition` to control whether your n
 
     [notificationController setNotificationPosition:SJNotificationPositionTop];
 
+## Notification Duration ##
+
+By default, a notification stays on screen until you tap it. To automatically hide it after a given delay, just set the property `notificationDuration`. There are a few predefined values for it:
+
+* `SJNotificationDurationStay`, which is the default, keeps the notification on screen until the user taps it.
+* `SJNofificationDurationShort` sets it to 1.5 seconds,
+* `SJNotificationDurationMedium` sets it to 3 seconds,
+* `SJNotificationDurationLong` sets it to 5 seconds
+* and finally, `SJNotificationDurationAlmostForever` sets it to 10 seconds.
+
+Instead of giving these typedef'd values, you can also just give the amount of milliseconds as an integer. Examples:
+
+* `[notificationController setNotificationDuration:SJNotificationDurationMedium];` or
+* `[notificationController setNotificationDuration:7000];`
+
+## Background and Text Color
+
+You can set the background color as well as text color like this:
+
+* `[notificationController setBackgroundColor:[UIColor brownColor]];` and
+* `[notificationController setTextColor:[UIColor yellowColor]];`
+
 ## Tapping on a Notification ##
 
 By default, tapping on a notification just hides it, but you can define your own target/selector pair to be called when the notification is tapped with `[notificationController setTapTarget:self action:@selector(doSomething)]`.

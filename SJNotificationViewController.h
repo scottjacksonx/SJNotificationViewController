@@ -22,18 +22,32 @@ typedef enum {
     SJNotificationPositionTop = 1
 } SJNotificationPosition;
 
+typedef enum {
+    SJNotificationDurationStay = 0,
+    SJNotificationDurationShort = 1500,
+    SJNotificationDurationMedium = 3000,
+    SJNotificationDurationLong = 5000,
+    SJNotificationDurationAlmostForever = 10000
+} SJNotificationDuration;
+
 @interface SJNotificationViewController : UIViewController {
 	SJNotificationLevel notificationLevel;
     SJNotificationPosition notificationPosition;
+    SJNotificationDuration notificationDuration;
 	UIView *parentView;
 	IBOutlet UILabel *label;
 	IBOutlet UIActivityIndicatorView *spinner;
 	BOOL showSpinner;
 	NSString *notificationTitle;
+    UIColor *backgroundColor;
+    UIColor *textColor;
 }
 
 @property (readwrite, assign) UIView *parentView;
 @property (nonatomic) SJNotificationPosition notificationPosition;
+@property (nonatomic) SJNotificationDuration notificationDuration;
+@property (nonatomic, retain) UIColor *backgroundColor;
+@property (nonatomic, retain) UIColor *textColor;
 
 - (void)setShowSpinner:(BOOL)b;
 - (void)setNotificationLevel:(SJNotificationLevel)level;
