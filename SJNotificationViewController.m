@@ -144,7 +144,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:target action:selector];
 	[self.view addGestureRecognizer:tap];
-	[tap release];
 }
 
 #pragma mark - Setting Notification Level
@@ -205,6 +204,28 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 						 }
 		 ];
 	}
+}
+
+#pragma  mark - Hide
+
+- (void)showFor:(NSInteger)seconds
+{
+    if (seconds > 0)
+    {
+        NSTimer *notificationTimer;
+        notificationTimer = [NSTimer scheduledTimerWithTimeInterval:seconds target:self
+                                                       selector:@selector(notificationTimerHide) userInfo:nil repeats:NO];
+        [self show];
+    }
+    else
+    {
+        [self show];
+    }
+}
+
+- (void)notificationTimerHide
+{
+    [self hide];
 }
 
 
