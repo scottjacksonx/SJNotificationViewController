@@ -23,7 +23,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @implementation SJNotificationViewController
 
-@synthesize parentView;
+@synthesize parentView, notificationPosition;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -50,7 +50,18 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	NSLog(@"showing notification view");
 	
 	/* Attach to the bottom of the parent view. */
-	CGFloat yPosition = [parentView frame].size.height;
+	CGFloat yPosition;
+    
+    switch (notificationPosition) {
+        case SJNotificationPositionTop:
+            yPosition = self.view.frame.size.height * -1;
+            break;
+            
+        default:
+            yPosition = [parentView frame].size.height;
+
+            break;
+    }
 	
 	[self.view setFrame:CGRectMake(0, yPosition, self.view.frame.size.width, self.view.frame.size.height)];
 	[parentView addSubview:self.view];
@@ -59,7 +70,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					 animations:^{
 						 /* Slide the notification view up. */
 						 CGRect shownRect = CGRectMake(0,
-													   yPosition - self.view.frame.size.height,
+													   [self yPositionWhenHidden:NO],
 													   self.view.frame.size.width,
 													   self.view.frame.size.height);
 						 [self.view setFrame:shownRect];
@@ -69,17 +80,52 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (void)hide {
 	NSLog(@"hiding notification view");
+  if (!self.view.superview) {
+    return;
+  }
+  
 	[UIView animateWithDuration:SLIDE_DURATION
 					 animations:^{
 						 /* Slide the notification view down. */
-						 CGFloat yPosition = [parentView frame].size.height;
-						 
-						 [self.view setFrame:CGRectMake(0, yPosition, self.view.frame.size.width, self.view.frame.size.height)];
+						 [self.view setFrame:CGRectMake(0, [self yPositionWhenHidden:YES], self.view.frame.size.width, self.view.frame.size.height)];
 					 }
 					 completion:^(BOOL finished) {
 						 [self.view removeFromSuperview];
 					 }
 	];
+}
+
+#pragma mark - Calculating position
+- (CGFloat)yPositionWhenHidden:(BOOL)hidden {
+    CGFloat y;
+    
+    // when hidden
+    if (hidden) {
+        switch (notificationPosition) {
+            case SJNotificationPositionTop:
+                y = self.view.frame.size.height * -1;
+                break;
+                
+            case SJNotificationPositionBottom:
+            default:
+                y = [parentView frame].size.height;
+                break;
+        }
+    // when shown
+    } else {
+        switch (notificationPosition) {
+            case SJNotificationPositionTop:
+                y = 0;
+                break;
+                
+            case SJNotificationPositionBottom:
+            default:
+                y = [parentView frame].size.height - self.view.frame.size.height;
+                break;
+        }
+    }
+    
+    return y;
 }
 
 #pragma mark - Setting Notification Title
@@ -98,7 +144,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:target action:selector];
 	[self.view addGestureRecognizer:tap];
-	[tap release];
 }
 
 #pragma mark - Setting Notification Level
@@ -159,6 +204,28 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 						 }
 		 ];
 	}
+}
+
+#pragma  mark - Hide
+
+- (void)showFor:(NSInteger)seconds
+{
+    if (seconds > 0)
+    {
+        NSTimer *notificationTimer;
+        notificationTimer = [NSTimer scheduledTimerWithTimeInterval:seconds target:self
+                                                       selector:@selector(notificationTimerHide) userInfo:nil repeats:NO];
+        [self show];
+    }
+    else
+    {
+        [self show];
+    }
+}
+
+- (void)notificationTimerHide
+{
+    [self hide];
 }
 
 

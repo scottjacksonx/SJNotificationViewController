@@ -17,8 +17,14 @@ typedef enum {
 	SJNotificationLevelSuccess = 2
 } SJNotificationLevel;
 
+typedef enum {
+    SJNotificationPositionBottom = 0,
+    SJNotificationPositionTop = 1
+} SJNotificationPosition;
+
 @interface SJNotificationViewController : UIViewController {
 	SJNotificationLevel notificationLevel;
+    SJNotificationPosition notificationPosition;
 	UIView *parentView;
 	IBOutlet UILabel *label;
 	IBOutlet UIActivityIndicatorView *spinner;
@@ -26,7 +32,8 @@ typedef enum {
 	NSString *notificationTitle;
 }
 
-@property (readwrite, assign) UIView *parentView;
+@property (strong, nonatomic) UIView *parentView;
+@property (nonatomic) SJNotificationPosition notificationPosition;
 
 - (void)setShowSpinner:(BOOL)b;
 - (void)setNotificationLevel:(SJNotificationLevel)level;
@@ -34,7 +41,10 @@ typedef enum {
 - (void)show;
 - (void)hide;
 
+- (void)showFor:(NSInteger)seconds;
 - (void)setNotificationTitle:(NSString *)t;
 - (void)setTapTarget:(id)target selector:(SEL)selector;
+
+- (CGFloat)yPositionWhenHidden:(BOOL)hidden;
 
 @end
