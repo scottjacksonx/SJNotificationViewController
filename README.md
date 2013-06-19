@@ -4,10 +4,11 @@ SJNotificationViewController lets you put dead-simple notifications that slide u
 
 All you need to do is create a notification, give it a view to slide up from, and tell it to show itself. Like this:
 
-	SJNotificationViewController *notificationController = [[SJNotificationViewController alloc] initWithNibName:@"SJNotificationViewController" bundle:nil];
-	[notificationController setParentView:aView];
-	[notificationController setNotificationTitle:@"Hello"];
-	[notificationController show];
+	// assume your view controller has an SJNotificationViewController* ivar called _notificationController
+	_notificationController = [[SJNotificationViewController alloc] initWithNibName:@"SJNotificationViewController" bundle:nil];
+	[_notificationController setParentView:aView];
+	[_notificationController setNotificationTitle:@"Hello"];
+	[_notificationController show];
 	
 ![](http://www.judoburrito.com/SJNotificationViewController/notification.png)
 	
