@@ -14,7 +14,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 #define SLIDE_DURATION 0.25f
 #define LABEL_RESIZE_DURATION 0.1f
-#define COLOR_FADE_DURATION 0.25f
 
 #define ERROR_HEX_COLOR 0xff0000
 #define MESSAGE_HEX_COLOR 0x0f5297
@@ -64,6 +63,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     }
 	
 	[self.view setFrame:CGRectMake(0, yPosition, self.view.frame.size.width, self.view.frame.size.height)];
+	[label setTextColor:textColor];
 	[parentView addSubview:self.view];
 	
 	[UIView animateWithDuration:SLIDE_DURATION
@@ -74,6 +74,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 													   self.view.frame.size.width,
 													   self.view.frame.size.height);
 						 [self.view setFrame:shownRect];
+						 [self.view setBackgroundColor:backgroundColor];
 					 }
 	 ];
 }
@@ -172,11 +173,18 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			break;
 	}
 	
-	[UIView animateWithDuration:COLOR_FADE_DURATION
-					 animations:^ {
-						 [self.view setBackgroundColor:color];
-					 }
-	];
+	backgroundColor = color;
+	textColor = [UIColor whiteColor];
+}
+
+#pragma mark - Custom background and text color
+
+- (void)setBackgroundColor:(UIColor *)color {
+	backgroundColor = color;
+}
+
+- (void)setTextColor:(UIColor *)color {
+	textColor = color;
 }
 
 #pragma mark - Spinner
