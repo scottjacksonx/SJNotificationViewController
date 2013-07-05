@@ -1,5 +1,5 @@
 /*
-Copyright (c) <YEAR>, <OWNER>
+Copyright (c) 2013, Scott Jackson
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -36,39 +36,29 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
 #pragma mark - Showing/Hiding the Notification
 
 - (void)show {
-	NSLog(@"showing notification view");
+	self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 	
-	/* Attach to the bottom of the parent view. */
+	/* Attach to the parent view. */
 	CGFloat yPosition;
-    
-    switch (notificationPosition) {
-        case SJNotificationPositionTop:
-            yPosition = self.view.frame.size.height * -1;
-            break;
-            
-        default:
-            yPosition = [parentView frame].size.height;
-
-            break;
-    }
+	switch (notificationPosition) {
+		case SJNotificationPositionTop:
+			yPosition = self.view.frame.size.height * -1;
+			break;
+		case SJNotificationPositionBottom:
+			yPosition = [parentView frame].size.height    
+		default:
+			break;
+	}
 	
 	[self.view setFrame:CGRectMake(0, yPosition, self.view.frame.size.width, self.view.frame.size.height)];
 	[parentView addSubview:self.view];
 	
 	[UIView animateWithDuration:SLIDE_DURATION
 					 animations:^{
-						 /* Slide the notification view up. */
+						 /* Slide the notification view into place. */
 						 CGRect shownRect = CGRectMake(0,
 													   [self yPositionWhenHidden:NO],
 													   self.view.frame.size.width,
@@ -86,7 +76,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
   
 	[UIView animateWithDuration:SLIDE_DURATION
 					 animations:^{
-						 /* Slide the notification view down. */
+						 /* Slide the notification view out of place. */
 						 [self.view setFrame:CGRectMake(0, [self yPositionWhenHidden:YES], self.view.frame.size.width, self.view.frame.size.height)];
 					 }
 					 completion:^(BOOL finished) {
