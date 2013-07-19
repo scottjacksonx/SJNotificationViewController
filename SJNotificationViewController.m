@@ -48,7 +48,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			yPosition = self.view.frame.size.height * -1;
 			break;
 		case SJNotificationPositionBottom:
-			yPosition = [parentView frame].size.height    
+			yPosition = [parentView frame].size.height;    
 		default:
 			break;
 	}
