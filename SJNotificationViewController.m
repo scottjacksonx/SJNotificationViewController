@@ -36,6 +36,18 @@
     return self;
 }
 
+- (id)initWithParentView:(UIView*)p title:(NSString*)t level:(SJNotificationLevel)l position:(SJNotificationPosition)pos spinner:(BOOL)sp {
+    self = [super initWithNibName:@"SJNotificationViewController" bundle:nil];
+    if (self) {
+        [self setParentView:p];
+        [self setNotificationTitle:t];
+        [self setNotificationLevel:l];
+        [self setNotificationPosition:pos];
+        [self setShowSpinner:sp];
+    }
+    return self;
+}
+
 #pragma mark - Showing/Hiding the Notification
 
 - (void)show {

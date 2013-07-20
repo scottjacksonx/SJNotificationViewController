@@ -35,6 +35,8 @@ typedef enum {
 @property (strong, nonatomic) UIView *parentView;
 @property (nonatomic) SJNotificationPosition notificationPosition;
 
+- (id)initWithParentView:(UIView*)p title:(NSString*)t level:(SJNotificationLevel)l position:(SJNotificationPosition)pos spinner:(BOOL)sp
+
 - (void)setShowSpinner:(BOOL)b;
 - (void)setNotificationLevel:(SJNotificationLevel)level;
 
