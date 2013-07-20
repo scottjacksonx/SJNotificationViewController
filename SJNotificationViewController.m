@@ -69,7 +69,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 }
 
 - (void)hide {
-	NSLog(@"hiding notification view");
   if (!self.view.superview) {
     return;
   }
@@ -174,7 +173,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 - (void)setShowSpinner:(BOOL)b {
 	showSpinner = b;
 	if (showSpinner) {
-		NSLog(@"spinner showing");
 		[spinner.layer setOpacity:1.0];
 		[UIView animateWithDuration:LABEL_RESIZE_DURATION
 						 animations:^{
@@ -185,7 +183,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 						 }
 		];
 	} else {
-		NSLog(@"spinner not showing");
 		[spinner stopAnimating];
 		[spinner.layer setOpacity:0.0];
 		[UIView animateWithDuration:LABEL_RESIZE_DURATION
