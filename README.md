@@ -10,6 +10,12 @@ All you need to do is create a notification, give it a view to slide up from, an
 	[_notificationController setNotificationTitle:@"Hello"];
 	[_notificationController show];
 	
+Or with the convinience constructor:
+	
+	SJNotificationViewController* n = [[SJNotificationViewController alloc] initWithParentView:aView title:@"Hello" 
+		level:SJNotificationLevelMessage position:SJNotificationPositionBottom spinner:NO];
+	[n show];
+	
 ![](http://www.judoburrito.com/SJNotificationViewController/notification.png)
 	
 That gives you a basic notification that slides up from the bottom of `aView`. When you want your notification to slide back down, you just call `[notificationController hide]`. Pretty simple, right?
