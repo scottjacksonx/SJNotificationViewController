@@ -6,7 +6,8 @@ Pod::Spec.new do |s|
   s.author   = { 'Scott Jackson' => 'scottjacksonx@gmail.com' }
   s.source   = { :git => 'git://github.com/scottjacksonx/SJNotificationViewController.git', :tag => '1.1' }
   s.homepage = 'http://github.com/scottjacksonx/SJNotificationViewController'
-  s.source_files = 'SJNotificationViewController{.h,.m,.xib}'
+  s.source_files = 'SJNotificationViewController{.h,.m}'
+  s.resources = ['SJNotificationViewController.xib']
   s.framework = 'QuartzCore'
 
   s.platform = :ios
